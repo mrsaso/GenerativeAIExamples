@@ -118,10 +118,3 @@ Open up a tab in your browser. Go to this URL http://localhost:9999/docs#/.
 
 Upload a `.txt` document.
 > You should see something akin to `"message": "File uploaded successfully"`
-
-
-
-
-## Further Resources (NIMs, RAG)
-- links to some blogs
-- links to some documentation 
