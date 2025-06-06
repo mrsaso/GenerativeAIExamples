@@ -1,13 +1,12 @@
-# RAG on GH200
+# Basic RAG on GH200
 
-Welcome to the repository! The intent is to provide clear steps to standing up a basic RAG example on a GH200 system.
+Welcome to the README.md for RAG on GH200! This repository has been forked from `NVIDIA/GenerativeAIExamples` in order to integrate necessary changes to multiple docker scripts.
+The intent is to provide clear steps to standing up a basic RAG example on a GH200 system.
 
 ## Requirements
 - CUDA Driver Version 12.8
 - NVIDIA Container Toolkit
-- Docker 
-
-//TODO insert info on ensuring nvidia-ctk and docker have appropiate runtimes steps <br>
+- Docker
 
 
 ## Quickstart 
@@ -27,7 +26,7 @@ $ docker login nvcr.io
 
 **2. Clone the repository and navigate into the appropiate directory.**
 ```
-git clone https://gitlab-master.nvidia.com/msorkin/rag-on-gh200.git && cd rag-on-gh200
+git clone https://github.com/mrsaso/GenerativeAIExamples.git && cd GenerativeAIExamples/RAG/examples/basic_rag/langchain
 ```
 
 **3. It's time to set up some environment variables and folders. Run these commands in terminal.**
