@@ -7,11 +7,11 @@ services:
     expose:
     - "5432"
     volumes:
-    - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/data:/var/lib/postgresql/data
+    - ./volumes/data:/var/lib/postgresql/data
     environment:
-    - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password}
-    - POSTGRES_USER=${POSTGRES_USER:-postgres}
-    - POSTGRES_DB=${POSTGRES_DB:-api}
+    - POSTGRES_PASSWORD=password
+    - POSTGRES_USER=postgres
+    - POSTGRES_DB=api
     profiles: ["pgvector"]
 
 
@@ -24,7 +24,7 @@ services:
       - ETCD_QUOTA_BACKEND_BYTES=4294967296
       - ETCD_SNAPSHOT_COUNT=50000
     volumes:
-      - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/etcd:/etcd
+      - ./volumes/etcd:/etcd
     command: etcd -advertise-client-urls=http://127.0.0.1:2379 -listen-client-urls http://0.0.0.0:2379 --data-dir /etcd
     healthcheck:
       test: ["CMD", "etcdctl", "endpoint", "health"]
@@ -43,7 +43,7 @@ services:
       - "9011:9011"
       - "9010:9010"
     volumes:
-      - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/minio:/minio_data
+      - ./volumes/minio:/minio_data
     command: minio server /minio_data --console-address ":9011" --address ":9010"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9010/minio/health/live"]
@@ -61,7 +61,7 @@ services:
       MINIO_ADDRESS: minio:9010
       KNOWHERE_GPU_MEM_POOL_SIZE: 2048;4096
     volumes:
-      - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/milvus:/var/lib/milvus
+      - ./volumes/milvus:/var/lib/milvus
     # healthcheck:
     #   test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
     #   interval: 30s
@@ -80,7 +80,7 @@ services:
           devices:
             - driver: nvidia
               capabilities: ["gpu"]
-              device_ids: ['${VECTORSTORE_GPU_DEVICE_ID:-0}']
+              device_ids: ['0']
     profiles: ["nemo-retriever", "milvus", ""]
 
   elasticsearch:
@@ -109,7 +109,7 @@ services:
     environment:
       POSTGRES_PASSWORD: pgadmin
     volumes:
-      - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/postgres_data:/var/lib/postgresql/data:Z
+      - ./volumes/postgres_data:/var/lib/postgresql/data:Z
     healthcheck:
       test: ["CMD-SHELL", "sh -c 'pg_isready -U postgres -d postgres'"]
       interval: 10s

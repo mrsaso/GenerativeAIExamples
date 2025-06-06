@@ -21,6 +21,9 @@ RUN rm -rf /var/lib/apt/lists/*
 # Uninstall build packages
 RUN apt autoremove -y curl software-properties-common
 
+# Install libmagic
+RUN apt-get update && apt-get install -y libmagic1 libmagic-dev
+
 # Install common dependencies for all examples
 RUN --mount=type=bind,source=RAG/src/chain_server/requirements.txt,target=/opt/requirements.txt \
     pip3 install --no-cache-dir -r /opt/requirements.txt
